@@ -1,0 +1,21 @@
+Lightning Talk : Contribuons au Logiciel Libre
+Organisé par le LouviLUG, 28/10/2010 14h BARB 94
+================================================
+
+Pendant vos vacances vous vous embêtiez et vous ne saviez pas quoi faire ? Pourquoi ne pas se lancer, et contribuer à votre distribution GNU/Linux ou à votre logiciel préféré ?
+
+Il y a plein de manières de contribuer, selon notre envie, notre connaissance et notre temps libre.
+
+Pourquoi déjà ne pas en parler autour de soi ? Expliquer ce qu'est GNU/Linux, les 4 libertés fondamentales, etc. Plus il y a d'utilisateurs, plus il y a de contributeurs potentiels.
+Ou bien aider notre entourage, ou d'autres personnes sur un forum par exemple. Si un logiciel est mal documenté, c'est aussi une bonne idée de combler ce manque.
+
+Rapporter un bug, ou faire une demande de fonctionnalité est aussi un moyen de contribuer, que ce soit pour une version stable d'un logiciel ou pour une version en développement (alpha/beta/...).
+
+Il y a bien sûr aussi la traduction, qui est assez facile avec un logiciel comme Poedit, et qui est relativement facile à mettre en œuvre par le développeur grâce à Gettext.
+
+Si un logiciel n'est pas packagé pour votre distribution, et que donc vous devez le compiler à la main, pourquoi ne pas créer un paquet ?
+
+Et si vous aimez la programmation, il y a plein de développeurs qui ne demandent qu'à être aidés !
+
+Voir les slides de la présentation sur :
+http://www.louvilug.be/wiki/LightningTalks/LT1

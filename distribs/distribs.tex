@@ -1,0 +1,237 @@
+\documentclass[a5paper,11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{url}
+
+% marges de la page
+\usepackage[top=0.6cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+
+% propriétés du fichier PDF et liens
+\usepackage{hyperref}
+\hypersetup{
+  pdfauthor   = {Sébastien Wilmet},
+  pdftitle    = {Distributions GNU/Linux (LouviLUG)},
+  pdfcreator  = {Texlive},
+  pdfproducer = {Texlive},
+  colorlinks  = true,
+  linkcolor   = black,
+  citecolor   = black,
+  urlcolor    = black
+}
+
+% titres personnalisés
+\def\titre#1#2{
+  \noindent
+  \begin{minipage}{0.14\linewidth}
+  \includegraphics[height=1.7cm]{#1}
+  \end{minipage}
+  \begin{minipage}{0.85\linewidth}
+    {\LARGE #2}
+
+    \begin{flushright}
+      LouviLUG, le 9/11/2011 (\url{louvilug.be}).
+    \end{flushright}
+  \end{minipage}
+
+  \vspace{0.5cm}
+}
+
+% en-tête et pied de page
+\usepackage{fancyhdr}
+\lhead{}
+\chead{}
+% dirty hack…
+\rhead{
+  \vspace{1.1cm}
+  \hspace*{0.4cm}
+  \thepage/\pageref{last-page}
+  \hspace*{-0.4cm}
+  \vspace{-1.1cm}
+}
+\renewcommand{\headrulewidth}{0pt}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\pagestyle{fancy}
+
+\begin{document}
+
+\titre{tux.pdf}{Distributions GNU/Linux~: introduction}
+
+Vous avez donc déjà entendu parler de Linux, bien~! Mais il se fait que Linux a
+un bon ami qui s'appelle GNU. Ensemble, ils forment un système d'exploitation
+complet, comme Windows ou Mac~OS~X, mais la grosse différence est que c'est un
+OS (\textit{Operating System}) \textbf{libre}.\footnote{Voir
+\url{http://fr.wikipedia.org/wiki/Logiciel_libre}.}
+
+\bigskip Il existe plusieurs \textit{distributions} GNU/Linux. Ce sont en
+quelque sorte des variantes, mais qui se basent toutes plus ou moins sur un même
+ensemble de logiciels. Quels sont les points principaux qui les différencient~?
+
+\bigskip La \textbf{facilité d'installation}. Certaines distrib' offrent plus de
+choix sur ce que l'on veut installer, ce qui rajoute une certaine complexité.
+D'autres visent une installation la plus simple et la plus rapide possible, qui
+convient à la plupart des gens normaux.
+
+\bigskip La \textbf{gestion des paquets} est souvent différente. Oui, pour
+installer un programme sur Linux, on utilise un système très pratique, qui
+s'appelle un \textit{gestionnaire de paquets}. Pas besoin d'aller télécharger au
+fin fond du web un fichier suspect où il faut cliquer sans arrêt sur «~suivant~»
+et puis de devoir redémarrer l'ordinateur pour on ne sait quelle raison. Non, à
+la place, il suffit de faire une gentille recherche pour trouver le nom du
+paquet à installer, et ensuite tout se fait pratiquement tout seul. L'ensemble
+des logiciels sont donc installés et mis à jour de façon uniforme~!
+
+\bigskip  \textbf{La fréquence des sorties de nouvelles versions}, ainsi que la
+\textbf{durée de support}. Une nouvelle version d'Ubuntu et de Fedora sort
+tous les six mois. Chez Debian, ça sort «~quand c'est prêt~» (environ tous les
+deux ans). D'autres distributions comme Gentoo et Arch Linux sont en
+\textit{rolling release}~: c'est continuellement mis à jour.
+
+\bigskip  Sans oublier la qualité et la quantité de \textbf{documentation},
+ainsi que la \textbf{communauté} (forums, \ldots), mais surtout
+l'\textbf{idéologie}. Certaines distrib' attachent plus d'importance aux
+libertés fondamentales, d'autres se veulent universelles et veulent offrir un
+maximum de choix, d'autres encore se veulent à la pointe de la technologie, ou
+au contraire préfèrent une stabilité maximale. Ubuntu est généralement admis
+comme un bon point de départ, mais peut-être qu'il existe une chaussure mieux
+taillée à votre pied~!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak \titre{debian.pdf}{Distributions GNU/Linux~: Debian}
+
+Nous commençons par Debian, car Ubuntu en est un dérivé direct.
+
+\bigskip Debian a été créée en 1993, ce qui en fait une des plus vieilles
+distributions encore en activité. Le développement de Debian se fait de manière
+vraiment \textbf{communautaire}. Ce n'est donc pas une distribution commerciale. Debian se définit comme «~Le système d'exploitation \textbf{universel}~» : on peut l'installer sur un très grand nombre de matériel électronique différent (ordinateurs, GSM, routeurs, …), et il existe un très grand nombre de paquets.
+
+\bigskip Une chose importante dans Debian est sa philosophie, notamment son
+fameux \textbf{contrat social} qui met l'accent sur le respect des principes du
+logiciel libre, auxquels les contributeurs adhèrent.
+
+\bigskip Une nouvelle version de Debian sort environ tous les deux ans («~quand
+c'est prêt~»), se veut très stable et est supportée pendant longtemps (plusieurs
+années). En plus, chaque version porte le nom d'un des personnages de
+\textbf{Toy Story}~! {\scriptsize (Que demander de plus~?)} La version stable
+est bien adaptée pour un serveur, par contre pour un ordinateur de bureau, il
+est souvent souhaitable d'avoir des versions plus récentes des logiciels. C'est
+possible, grâce à \textbf{Debian testing}, une version de Debian qui est en
+\textit{rolling release}. Le désavantage c'est que ça peut être un peu moins
+stable, mais les Debianeux vous diront qu'il n'y a pratiquement jamais de
+problèmes (ceci dit, c'est en ayant des problèmes qu'on apprend le plus~!). 
+% et que ubuntu est basée sur la unstable :p
+
+\bigskip Le gestionnaire de paquets est \textbf{dpkg}, avec APT comme
+sur-couche. Les paquets sont des fichiers *.deb. Le programme Synaptic est un
+outil avec interface graphique pour manipuler les paquets. En ligne de commande,
+\texttt{aptitude} ou \texttt{apt-get} est généralement utilisé, mais pour
+certaines choses il faut utiliser d'autres commandes, comme \texttt{apt-cache}.
+Petit bonus~: essayez \texttt{aptitude moo}. {\scriptsize (Pour ceux qui lisent
+en diagonale~: ça marche aussi sur Ubuntu ;)}
+
+\bigskip L'installation n'est pas aussi aisée que celle d'Ubuntu~: une fois
+Debian installée, vous devrez encore installer et configurer d'autres choses,
+selon votre choix. Selon certaines informations, Ubuntu serait un ancien mot
+africain voulant dire~: «~je ne sais pas configurer Debian~».
+
+\bigskip Intéressé(e)~? Alors laissez-vous guider par la \textit{Formation
+Debian GNU/Linux} d'Alexis de Lattre
+(\url{http://formation-debian.via.ecp.fr/}).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak \titre{fedora.pdf}{Distributions GNU/Linux~: Fedora}
+
+La fée Dora est maintenant une grande fille, elle vient de fêter ses 16
+bougies~! Bon, pour être exact, il y a une nouvelle version \textbf{tous les six
+mois} (comme Ubuntu), ce qui lui fait environ 8 ans. Une version est maintenue
+durant environ 13 mois (après, il n'y a plus de mises à jour de sécurité), ce
+qui est peu comparé à Debian ou une Ubuntu LTS (\textit{Long Term Support}, 3 à
+5 ans). Fedora s'adresse donc plutôt au \textit{desktop}.
+
+\bigskip Fedora ---~bien que gouvernée de façon indépendante~--- est
+principalement développée par \textbf{Red~Hat}, une des entreprises qui
+contribue le plus à GNU/Linux. Fedora se veut à la pointe de la technologie
+(\textit{\textbf{bleeding edge}}).
+
+\bigskip Il faut distinguer l'\textit{upstream} (en amont) du
+\textit{downstream} (en aval). Les distributions (Ubuntu, Debian, Fedora, …)
+font partie du downstream, tandis que les logiciels tels que le noyau Linux, le
+navigateur web Firefox, la suite bureautique LibreOffice, et ainsi de suite,
+font partie de l'upstream. Un des rôles d'une distribution est de s'assurer
+qu'il y ait une bonne intégration des différents logiciels (via le
+\textit{packaging}).
+
+Souvent, pour qu'il y ait une bonne intégration, certaines modifications doivent
+être faites. Une telle modification s'appelle un \textit{patch}. Les
+développeurs de Fedora communiquent le plus possible aux développeurs amonts
+pour que ces patchs soient intégrés directement en upstream. Puisque c'est
+intégré upstream, Fedora ne doit plus s'en occuper, et les autres distrib'
+profitent des améliorations apportées. Il est parfois reproché à d'autres
+distributions, comme Ubuntu, de ne pas suffisamment \textbf{contribuer
+upstream}.
+
+\bigskip Le gestionnaire de paquets est \textbf{RPM}. PackageKit en interface
+graphique, ou \texttt{yum} et \texttt{rpm} en console. Pour une utilisation
+basique, cela ne change pas grand chose par rapport à dpkg/APT. Mais yum permet
+de faire des choses plus avancées qui n'existent pas chez Debian, et
+inversement.
+
+\bigskip L'installation est presque aussi simple qu'Ubuntu, ça
+\textbf{fonctionne «~\textit{out-of-the-box}~»}. Pour pouvoir lire des fichiers
+MP3 ou des animations Flash, c'est un poil plus compliqué, car Fedora est très
+strict sur tout ce qui n'est pas libre ou pose des problèmes de brevets
+logiciels. Autre petite chose, Fedora est de base \textit{hardened},
+c'est-à-dire qu'il y a des mécanismes supplémentaires qui renforcent la
+sécurité.
+
+\bigskip Rendez-vous sur \url{http://www.fedora-fr.org/}~!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak \titre{gentoo.pdf}{Distributions GNU/Linux~: Gentoo}
+
+Dans un tout autre registre, Gentoo (prononcer «~djentou~») s'adresse clairement
+aux passionnés, qui sont prêt à passer plus de temps pour l'installation, mais
+qui aiment bien \textbf{comprendre ce qu'il se passe «~sous le capot~»}, et
+d'avoir un plus \textbf{grand contrôle} sur leur machine. Un pré-requis est de
+connaitre les bases de la ligne de commande, puisque l'installation se passe
+entièrement dans le terminal. Gentoo est de type \textbf{\textit{rolling
+release}}~: les mises à jour se font continuellement. Donc en théorie, une fois
+que c'est installé, on est tranquille.
+
+% pas besoin de croiser les doigts tous les six mois et/ou passer une
+% demi-journée pour tout réinstaller à chaque fois…
+
+\bigskip Pour installer un logiciel, Gentoo doit le \textbf{compiler}. En effet,
+le code source (la recette) est d'abord téléchargé, et puis compilé (cuisiné)
+sur notre propre machine. On appelle ça une distribution «~source~». Debian et
+Fedora sont des distributions «~binaires~», car les paquets contiennent les
+programmes sous forme déjà compilée. Ce système de compilation s'inspire du
+système d'exploitation \textbf{FreeBSD} (libre, lui aussi, mais qui ne se base
+pas sur le noyau Linux).
+
+Compiler un logiciel, ça prend du temps, beaucoup plus de temps que d'installer
+un paquet binaire\footnote{Il faut donc être patient, mais les gens heureux ne
+sont pas pressés.}. Mais ça offre une bien plus grande flexibilité~! En effet,
+\textbf{Portage}, le gestionnaire de paquets, permet ---~pour presque chaque
+paquet (ou \textit{ebuild})~--- d'activer ou non certaines options. Exemple~: si
+nous ne sommes pas intéressé par l'IPv6\footnote{Si vous ne savez pas ce qu'est
+l'IPv6, c'est que vous n'en avez pas encore besoin.}, on peut désactiver
+l'option de manière globale pour tous les logiciels, ce qui allège les binaires
+générés et accélère légèrement le temps de démarrage de ces programmes.
+
+\bigskip Portage permet de faire d'autres choses intéressantes, comme installer
+en parallèle plusieurs versions différentes d'un même logiciel, si les
+développeurs ont pris soin de les placer dans des \textit{slots} différents.
+
+\bigskip Dès l'installation, on a énormément de choix sur ce que l'on peut
+installer (mais tout est bien indiqué, il suffit de se laisser guider). Il va de
+soi que l'on va essayer de n'installer que le strict nécessaire, alors qu'Ubuntu
+ou Fedora installent souvent des choses dont on n'a pas besoin.
+
+\bigskip Tout compris~? Alors fonce vers le (long mais instructif)
+\textit{handbook}~!\\ \url{http://www.gentoo.org/} \label{last-page}
+\end{document}

@@ -1,0 +1,62 @@
+\documentclass[a5paper,11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{url}
+
+% marges de la page
+\usepackage[top=0.6cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+
+% propriétés du fichier PDF et liens
+\usepackage{hyperref}
+\hypersetup{
+  pdfauthor   = {Sébastien Wilmet},
+  pdftitle    = {Développement GNOME},
+  pdfcreator  = {Texlive},
+  pdfproducer = {Texlive},
+  colorlinks  = true,
+  linkcolor   = black,
+  citecolor   = black,
+  urlcolor    = black
+}
+
+% titres personnalisés
+\def\titre#1#2{
+  \noindent
+  \begin{minipage}{0.14\linewidth}
+  \includegraphics[height=1.7cm]{#1}
+  \end{minipage}
+  \begin{minipage}{0.85\linewidth}
+    {\LARGE #2}
+
+    \begin{flushright}
+      \url{http://developer.gnome.org/}
+    \end{flushright}
+  \end{minipage}
+
+  \vspace{0.5cm}
+}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\titre{gnome-logo.pdf}{Développement GNOME et le langage Vala}
+
+Vala est un langage de programmation orienté objets créé en 2006, utilisé principalement pour le gestionnaire de bureaux GNOME. Sa syntaxe est proche du C\#. Lors de la compilation, le code source est d'abord traduit en langage~C pour être ensuite compilé par GCC ou autre (Clang, …). Vala se base sur GObject, la bibliothèque de base utilisée pour GNOME.
+
+GObject offre un système dynamique de types, permettant de faire de l'orienté objets avec de l'héritage, des interfaces, et tout ce qui s'en suit. La gestion de la mémoire se fait avec un compteur, quand celui-ci tombe à 0, l'objet est détruit. Un objet peut envoyer et recevoir différents signaux, permettant d'exécuter des fonctions \textit{callback} quand le signal est envoyé. Un objet peut avoir aussi des propriétés, qui sont comme des attributs, mais permettent en plus de recevoir un signal quand la valeur est modifiée.
+
+Ce système de signaux permet de faire de la programmation événementielle, ce qui est indispensable pour une application avec interface graphique, pour réagir aux différentes actions de l'utilisateur.
+
+Il est tout à fait possible d'écrire une application en C se reposant sur GObject. Mais comme le langage~C n'est pas orienté objet, il y a beaucoup de «~code de remplissage~». Vala intègre les spécificités de GObject directement dans la syntaxe du langage, ce qui facilite énormément les choses et rend le développement d'applications GNOME plus agréable.
+
+Une autre bibliothèque fondatrice de GNOME est la GLib. La GLib offre un système de \textit{threads} couplé à une \textit{Main Event Loop}. Les évènements concernant une application sont ajoutés à la \textit{Main Event Loop}, et leur traitement peuvent être lancés dans différents \textit{threads}. Les \textit{threads} peuvent communiquer de manière asynchrone. Mais la GLib est bien plus que cela, c'est aussi une boite à outils pour les développeurs, offrant de nombreuses fonctionnalités de haut niveau, ainsi que la manipulation de structures de données de base telles que des listes chaînées et des arbres.
+
+De nombreuses autres bibliothèques GNOME existent, et se basent sur GLib/GObject. Notamment GTK+, permettant de créer une interface graphique composée de \textit{widgets}.
+
+Grâce à GObject-introspection, les bibliothèques basées sur GObject sont disponibles pour d'autres langages tels que Python et Javascript. Avant, des \textit{bindings} devaient être créés et maintenus, comme par exemple PyGTK pour permettre d'utiliser GTK+ en Python. Maintenant, cela se fait de manière automatique.
+
+\end{document}

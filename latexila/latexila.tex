@@ -1,0 +1,65 @@
+\documentclass[a5paper,11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{url}
+
+% marges de la page
+\usepackage[top=0.6cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+
+% propriétés du fichier PDF et liens
+\usepackage{hyperref}
+\hypersetup{
+  pdfauthor   = {Sébastien Wilmet},
+  pdftitle    = {LaTeXila (Louvain-li-Nux)},
+  pdfcreator  = {Texlive},
+  pdfproducer = {Texlive},
+  colorlinks  = true,
+  linkcolor   = black,
+  citecolor   = black,
+  urlcolor    = black
+}
+
+% titres personnalisés
+\def\titre#1#2{
+  \noindent
+  \begin{minipage}{0.14\linewidth}
+  \includegraphics[height=1.7cm]{#1}
+  \end{minipage}
+  \begin{minipage}{0.85\linewidth}
+    {\LARGE #2}
+
+    \begin{flushright}
+      \url{http://projects.gnome.org/latexila/}
+    \end{flushright}
+  \end{minipage}
+
+  \vspace{0.5cm}
+}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\titre{latexila.png}{\LaTeX{}ila, un éditeur \LaTeX{} pour GNOME}
+
+\LaTeX{} permet d'écrire des documents de toutes sortes : des articles, rapports, livres, transparents, présentations, lettres, mémoires, syllabus, … Les applications telles que LibreOffice, Abiword ou encore Microsoft Word sont de type WYSIWYG («~\textit{What you see is what you get}~»). \LaTeX{}, par contre, est un langage informatique à balises. Par exemple, la balise \texttt{\textbackslash{}tableofcontents} permet d'afficher la table des matières, qui est générée automatiquement. Les fichiers sources sont compilés pour donner généralement un fichier PDF.
+
+Pour écrire un document en \LaTeX{}, trois logiciels sont nécessaires (pour simplifier) : un éditeur de texte, pour éditer les fichiers sources ; le compilateur qui génère le fichier PDF ; et un visionneur de documents PDF. Bien qu'un simple éditeur de texte suffit, il est plus simple d'utiliser un éditeur \LaTeX{}, qui possède des fonctionnalités propres à \LaTeX{}.
+
+GNOME est un gestionnaire de bureaux disponible sous GNU/Linux. \LaTeX{}ila est un éditeur \LaTeX{} qui s'intègre bien à GNOME, car la bibliothèque graphique GTK+ est utilisée. C'est un logiciel libre, sous licence GPL~3, et est écrit en langage Vala, qui est de plus en plus utilisé pour développer des applications en GTK+.
+
+Comme fonctionnalités principales, il y a :
+\begin{itemize}
+  \item La complétion des balises : quand on tape le début d'une balise, des propositions apparaissent ;
+  \item Compiler, convertir et visionner un document en un clic, avec l'affichage des erreurs éventuelles. Ceci peut être configuré assez finement ;
+  \item L'affichage de la structure du document, c'est-à-dire une liste arborescente des chapitres, sections, sous-sections, etc. ainsi que d'autres éléments comme les figures et les tableaux. Cliquer sur un élément permet d'aller à l'endroit de celui-ci dans le fichier source ;
+  \item Des tableaux de symboles scientifiques. En cliquant sur un symbole, la balise correspondante est insérée dans le document ;
+  \item La correction orthographique ;
+  \item La gestion de modèles, qui sert de base à la création de nouveaux documents : quelques modèles de base sont disponibles pour par exemple créer un article ou un rapport, mais l'utilisateur peut créer ses propres modèles ;
+  \item Quand un document est divisé en plusieurs fichiers sources, il est utile de créer un projet. La création d'un projet est très simple : il suffit de spécifier le dossier ainsi que le fichier principal.
+\end{itemize}
+
+\end{document}
