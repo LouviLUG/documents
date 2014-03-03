@@ -6,6 +6,13 @@ Sources des documents du LouviLUG.
 Sauf mention contraire, les documents sont sous licence Creative Commons
 BY SA.
 
+Les fichiers PDF sont sur l'espace de téléchargements :
+http://download.tuxfamily.org/louvilug/
+
+Voir aussi :
+http://louvilug.tuxfamily.org/
+https://github.com/louvainlinux
+
 Contribuons au Libre
 --------------------
 
