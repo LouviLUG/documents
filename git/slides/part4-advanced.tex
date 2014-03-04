@@ -1,0 +1,338 @@
+\section{Autres fonctionnalités}
+
+\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{background-light}}
+\begin{frame}
+  \tableofcontents[sectionstyle=show/shaded]
+\end{frame}
+\usebackgroundtemplate{}
+
+\begin{frame}{\code{git stash}}
+\begin{center}
+\begin{tikzpicture}[thick,commit2/.style={commit, node distance=11mm}]
+  \node [commit2] (98ca9) {98ca9};
+  \node [commit2, above of=98ca9] (34ac2) {34ac2};
+  \draw [arrow] (98ca9) -- (34ac2);
+  \node [commit2, above of=34ac2] (f30ab) {f30ab};
+  \draw [arrow] (34ac2) -- (f30ab);
+  \node [commit2, above of=f30ab] (c2b9e) {c2b9e};
+  \draw [arrow] (f30ab) -- (c2b9e);
+  \node [commit2, above of=c2b9e] (a071e) {a071e};
+  \draw [arrow] (c2b9e) -- (a071e);
+
+  \node [commit, right=25mm of c2b9e] (stash0) {stash@\{0\}};
+  \node [commit, below of=stash0] (stash1) {stash@\{1\}};
+  \node [commit, below of=stash1] (stash2) {stash@\{2\}};
+  \node [commit, below of=stash2] (stash3) {...};
+  \begin{pgfonlayer}{background}
+    \node [head, fit=(stash0) (stash3)] {};
+  \end{pgfonlayer}
+
+  \draw [arrow, dashed, opacity=.5] (c2b9e) -- (stash0);
+  \draw [arrow, dashed, opacity=.5] (c2b9e) -- (stash1);
+  \draw [arrow, dashed, opacity=.5] (98ca9) -- (stash2);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{\code{git stash}}
+  git stash \begin{itemize}
+    \item save [message]
+    \pause
+    \item list
+    \item show [stash]
+    \pause
+    \item apply [stash]
+    \item pop [stash]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{\code{git stash save}}
+\begin{small}
+\begin{alltt}
+$ git status
+# On branch master
+# Changes not staged for commit:
+#
+#       \textcolor{ansired}{modified:   main.c}
+#
+no changes added to commit (use "git add"/"git commit -a")
+
+$ git stash save
+Saved working directory and index state WIP on master: 8540fea
+HEAD is now at 8540fea message
+
+$ git status
+# On branch master
+nothing to commit (working directory clean)
+\end{alltt}
+\end{small}
+\end{frame}
+
+\begin{frame}[fragile]{\code{git stash list, show}}
+\begin{alltt}
+$ git stash list
+stash@\{0\}: WIP on master: 8540fea message
+
+$ git stash show -p
+\textcolor{ansired}{diff –git a/main.c b/main.c
+index f2ad6c7..2f773ae 100644
+--- a/main.c
++++ b/main.c}
+\textcolor{ansicyan}{@@ -1,3 +1,5 @@}
+\textcolor{ansigreen}{+#include <stdio.h>
++}
+ int main() \{
+    printf("Hello, world!");
+    return 0;
+ \}
+\end{alltt}
+\end{frame}
+
+\begin{frame}{Commandes avancées}
+  \textbf{git grep}
+  \begin{itemize}
+    \item grep(1) sur les fichiers pris en compte par git
+  \end{itemize}
+
+  \bigskip
+  \textbf{git tag}
+  \begin{itemize}
+    \item crée un \emph{tag}, une référence fixe vers un commit
+  \end{itemize}
+
+  \bigskip
+  \textbf{git revert}
+  \begin{itemize}
+    \item crée un \emph{commit} qui annule un autre
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{\code{git blame}}
+montre qui a modifié le fichier, ligne par ligne
+
+\begin{footnotesize}
+\begin{verbatim}
+$ git blame git.c
+85023 (Junio C Hamano      2006-12-19  1) #include "builtin.h"
+2b11e (Johannes Schindelin 2006-06-05  2) #include "cache.h"
+fd5c3 (Thiago Farina       2010-08-31  3) #include "exec_cmd.h"
+fd5c3 (Thiago Farina       2010-08-31  4) #include "help.h"
+575ba (Matthias Lederhofer 2006-06-25  5) #include "quote.h"
+d8e96 (Jeff King           2009-01-28  6) #include "run-command.h"
+8e49d (Andreas Ericsson    2005-11-16  7)
+822a7 (Ramsay Allan Jones  2006-07-30  8) const char git_usage_string[] =
+f2dd8 (Jon Seymour         2011-05-01  9)        "git [--version] [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n"
+\end{verbatim}
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}[fragile]{\code{git reset}}
+Change le pointeur de la branche courante
+\begin{footnotesize}
+\begin{alltt}
+$ git reset HEAD^ # recule la branche d'un commit
+Unstaged changes after reset:
+M      README
+
+$ git status
+# On branch master
+# Changes not staged for commit:
+#
+#       \textcolor{ansired}{modified:   README}
+\end{alltt}
+\begin{center}
+\begin{tikzpicture}[thick, node distance=25mm]
+  \node [align=center] (command) at (2,2.3) {\code{\$ git reset \code{-}-hard 98ca9}};
+  \node [commit] (98ca9) {98ca9};
+  \node [commit, right of=98ca9] (34ac2) {34ac2};
+  \draw [arrow] (98ca9) -- (34ac2);
+  \node [commit, right of=34ac2] (f30ab) {f30ab};
+  \draw [arrow] (34ac2) -- (f30ab);
+
+  \node [branch, above=6mm of f30ab, opacity=.5] (old_master) {master};
+  \draw [arrow, opacity=.5] (f30ab) -- (old_master);
+
+  \node [branch, above=6mm of 98ca9] (master) {master};
+  \draw [arrow] (98ca9) -- (master);
+\end{tikzpicture}
+\end{center}
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}[fragile]{\code{git commit \code{-}-amend}}
+Pour modifier le dernier \emph{commit} :
+\begin{itemize}
+  \item ajouter une modification ;
+  \item modifier le message du \emph{commit}.
+\end{itemize}
+
+\bigskip
+\begin{verbatim}
+$ edit some_file
+$ git add some_file
+$ git commit --amend
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{\code{git rebase \code{-}-interactive}}
+Permet de modifier l'historique
+\begin{footnotesize}
+\begin{verbatim}
+$ git rebase -i HEAD~3
+
+pick 4eeebe5 bulk-checkin: allow the same data to be multiply hashed
+pick 127b177 bulk-checkin: support chunked-object encoding
+pick 973951a chunked-object: fallback checkout codepaths
+
+# Rebase 617312b..973951a onto 617312b
+#
+# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like "squash", but discard this commit's log message
+#  x, exec = run command (the rest of the line) using shell
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+# However, if you remove everything, the rebase will be aborted.
+#
+\end{verbatim}
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}[fragile]{\code{git reflog}}
+Log des opérations sur les \emph{commits}
+\begin{footnotesize}
+\begin{verbatim}
+$ git reflog
+b0d66 HEAD@{0}: commit (amend): add a setting to require a filter to be successful
+97395 HEAD@{1}: checkout: moving from master to man
+b0d66 HEAD@{2}: rebase: aborting
+9cda8 HEAD@{3}: rebase -i (pick): grep: drop grep_buffer's "name" parameter
+b9ef9 HEAD@{4}: rebase -i (pick): convert git-grep to use grep_source interface
+837de HEAD@{5}: rebase -i (pick): grep: make locking flag global
+84f3d HEAD@{6}: checkout: moving from master to 84f3d
+b0d66 HEAD@{7}: pull: Fast-forward
+f6b50 HEAD@{8}: cherry-pick: add a TODO
+98c05 HEAD@{9}: reset: moving to HEAD^
+e11ee HEAD@{10}: checkout: moving from master to pu
+77eac HEAD@{11}: commit: add a TODO
+75f43 HEAD@{12}: commit: use the correct format identifier for unsigned long: %lu
+f88cc HEAD@{13}: pull --rebase: git grep
+07873 HEAD@{14}: pull : Fast-forward
+f70f7 HEAD@{15}: clone: from git://git.kernel.org/pub/scm/git/git.git
+\end{verbatim}
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}[fragile]{\code{git add \code{-}-patch}}
+Permet d'ajouter une partie des modifications d'un fichier
+\begin{footnotesize}
+\begin{alltt}
+$ git add -p
+diff --git a/README b/README
+\textcolor{ansicyan}{@@ -1,5 +1,7 @@}
+ 1
+\textcolor{ansigreen}{+2}
+ 3
+\textcolor{ansigreen}{+4}
+\textcolor{ansiblue}{Stage this hunk [y,n,q,a,d,/,s,e,?]?} s
+Split into 2 hunks.
+\textcolor{ansicyan}{@@ -1,2 +1,3 @@}
+ 1
+\textcolor{ansigreen}{+2}
+ 3
+\textcolor{ansiblue}{Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?} n
+\textcolor{ansicyan}{@@ -2,4 +3,5 @@}
+ 3
+\textcolor{ansigreen}{+4}
+\textcolor{ansiblue}{Stage this hunk [y,n,q,a,d,/,K,g,e,?]?} y
+\end{alltt}
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}{git cherry-pick}
+Applique un \emph{commit} sur la branche courante.
+
+\begin{center}
+\begin{tikzpicture}[thick, node distance=25mm]
+  \node [align=center] (command) at (2,2.5) {\code{\$ git cherry-pick 4ce4a}};
+  \node [commit] (98ca9) {98ca9};
+  \node [commit, right of=98ca9] (34ac2) {34ac2};
+  \draw [arrow] (98ca9) -- (34ac2);
+  \node [commit, right of=34ac2] (f30ab) {f30ab};
+  \draw [arrow] (34ac2) -- (f30ab);
+
+  \node [commit, below=8mm of 98ca9] (bf7e0) {bf7e0};
+  \node [commit, right of=bf7e0] (4ce4a) {4ce4a};
+  \draw [arrow] (bf7e0) -- (4ce4a);
+  \node [commit, right of=4ce4a] (e73f0) {e73f0};
+  \draw [arrow] (4ce4a) -- (e73f0);
+  \node [commit, right of=e73f0] (ffbcb) {ffbcb};
+  \draw [arrow] (e73f0) -- (ffbcb);
+
+  \node [branch, above=6mm of 34ac2, opacity=.5] (old_master) {master};
+  \draw [arrow, opacity=.5] (34ac2) -- (old_master);
+
+  \node [branch, above=6mm of f30ab] (master) {master};
+  \draw [arrow] (f30ab) -- (master);
+
+  \node [branch, below=6mm of ffbcb] (feature) {feature};
+  \draw [arrow] (ffbcb) -- (feature);
+
+  \draw [arrow, dashed, opacity=.5] (f30ab) -- (4ce4a);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{\code{git bisect}}
+Permet de trouver l'origine d'un bug
+
+\begin{footnotesize}
+\begin{verbatim}
+$ git bisect start bad_commit good_commit
+Bisecting: 20 revisions left to test after this (roughly 4 steps)
+[e4f3edc] Sync with maint
+
+$ git bisect run ./mytests
+Bisecting: 9 revisions left to test after this (roughly 3 steps)
+[42226d] pack-objects: remove bogus comment
+...
+Bisecting: 0 revisions left to test after this (roughly 1 step)
+[9a4749] checkout -m: no need to insist on having all 3 stages
+
+8280f2e0a0f4776c4b3008c9172fc0a3e7361534 is the first bad commit
+commit 8280f2e0a0f4776c4b3008c9172fc0a3e7361534
+Author: eregon <mail@me>
+Date:   Sat Feb 18 17:36:47 2012 +0100
+
+    Noooo! You found my hidden bug!
+\end{verbatim}
+\end{footnotesize}
+\end{frame}
+
+% expain briefly internals: sha1, parents, ...
+
+\begin{frame}{Services d'hébergement}
+  \begin{itemize}
+    \item GitHub
+    \medskip
+    \item Gitorious
+    \medskip
+    \item Bitbucket, assembla (dépôts privés gratuits)
+    \medskip
+    \item En INGI (voir le wiki)
+          \url{http://wiki.student.info.ucl.ac.be/index.php/Git}
+  \end{itemize}
+\end{frame}
+
+\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{background-light}}
+\begin{frame}{Liens}
+\begin{itemize}
+  \item Les manpages: \code{git help [-\code{-}web] <cmd>}
+  \item \url{http://git-scm.com/book}: Pro Git book
+  \item \url{http://eregon.me/git/}: Slides, aide-mémoire, exercices
+\end{itemize}
+\end{frame}
+\usebackgroundtemplate{}

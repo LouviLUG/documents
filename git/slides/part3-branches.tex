@@ -1,0 +1,406 @@
+\section{Gérer plusieurs branches}
+
+\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{background-light}}
+\begin{frame}
+  \tableofcontents[sectionstyle=show/shaded]
+\end{frame}
+\usebackgroundtemplate{}
+
+\begin{frame}{Créer une branche}
+  Une branche :
+  \begin{itemize}
+    \item Pointe vers un commit ;
+    \item Le pointeur «~avance~» quand on crée un commit.
+  \end{itemize}
+
+  \medskip
+  Un commit pointe vers son ou ses commit(s) parent(s).
+
+  \bigskip
+  Créons une branche :
+
+\begin{center}
+  \begin{tikzpicture}[thick, node distance=28mm]
+    \node (command) at (2,1.5) {\code{\$ git branch testing}};
+    \node [commit] (98ca9) {98ca9};
+    \node [commit, right of=98ca9] (34ac2) {34ac2};
+    \draw [arrow] (98ca9) -- (34ac2);
+    \node [commit, right of=34ac2] (f30ab) {f30ab};
+    \draw [arrow] (34ac2) -- (f30ab);
+    \node [branch, above=8mm of f30ab] (master) {master};
+    \draw [arrow] (f30ab) -- (master);
+    \node [branch, below=8mm of f30ab] (testing) {testing};
+    \draw [arrow] (f30ab) -- (testing);
+  \end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{HEAD}
+Le pointeur \code{HEAD} pointe vers la branche courante.
+
+\begin{center}
+  \begin{tikzpicture}[thick, node distance=28mm]
+    \node [align=left] (command) at (2,2) {\code{\$ git branch}\\
+                                            \code{* \textcolor{ansigreen}{master}}\\
+                                            \quad\code{testing}};
+    \node [commit] (98ca9) {98ca9};
+    \node [commit, right of=98ca9] (34ac2) {34ac2};
+    \draw [arrow] (98ca9) -- (34ac2);
+    \node [commit, right of=34ac2] (f30ab) {f30ab};
+    \draw [arrow] (34ac2) -- (f30ab);
+    \node [branch, above=8mm of f30ab] (master) {master};
+    \draw [arrow] (f30ab) -- (master);
+    \node [branch, below=8mm of f30ab] (testing) {testing};
+    \draw [arrow] (f30ab) -- (testing);
+    \node [head, above=8mm of master] (head) {HEAD};
+    \draw [arrow] (master) -- (head);
+  \end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Changer de branche}
+\begin{center}
+  \begin{tikzpicture}[thick, node distance=28mm]
+    \node (command) at (2,1.5) {\code{\$ git checkout testing}};
+    \node [commit] (98ca9) {98ca9};
+    \node [commit, right of=98ca9] (34ac2) {34ac2};
+    \draw [arrow] (98ca9) -- (34ac2);
+    \node [commit, right of=34ac2] (f30ab) {f30ab};
+    \draw [arrow] (34ac2) -- (f30ab);
+    \node [branch, above=8mm of f30ab] (master) {master};
+    \draw [arrow] (f30ab) -- (master);
+    \node [branch, below=8mm of f30ab] (testing) {testing};
+    \draw [arrow] (f30ab) -- (testing);
+    \node [head, below=8mm of testing] (head) {HEAD};
+    \draw [arrow] (testing) -- (head);
+  \end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Créer un commit sur testing}
+\begin{center}
+  \begin{tikzpicture}[thick, node distance=28mm]
+    \node (command) at (2,1.5) {\code{\$ git commit ...}};
+    \node [commit] (98ca9) {98ca9};
+    \node [commit, right of=98ca9] (34ac2) {34ac2};
+    \draw [arrow] (98ca9) -- (34ac2);
+    \node [commit, right of=34ac2] (f30ab) {f30ab};
+    \draw [arrow] (34ac2) -- (f30ab);
+    \node [branch, above=8mm of f30ab] (master) {master};
+    \draw [arrow] (f30ab) -- (master);
+    \node [commit, right of=f30ab] (c2b9e) {c2b9e};
+    \draw [arrow] (f30ab) -- (c2b9e);
+    \node [branch, below=8mm of c2b9e] (testing) {testing};
+    \draw [arrow] (c2b9e) -- (testing);
+    \node [head, below=8mm of testing] (head) {HEAD};
+    \draw [arrow] (testing) -- (head);
+  \end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Revenir sur master}
+\begin{center}
+  \begin{tikzpicture}[thick, node distance=28mm]
+    \node (command) at (2,1.5) {\code{\$ git checkout master}};
+    \node [commit] (98ca9) {98ca9};
+    \node [commit, right of=98ca9] (34ac2) {34ac2};
+    \draw [arrow] (98ca9) -- (34ac2);
+    \node [commit, right of=34ac2] (f30ab) {f30ab};
+    \draw [arrow] (34ac2) -- (f30ab);
+    \node [branch, above=8mm of f30ab] (master) {master};
+    \draw [arrow] (f30ab) -- (master);
+    \node [commit, right of=f30ab] (c2b9e) {c2b9e};
+    \draw [arrow] (f30ab) -- (c2b9e);
+    \node [branch, below=8mm of c2b9e] (testing) {testing};
+    \draw [arrow] (c2b9e) -- (testing);
+    \node [head, above=8mm of master] (head) {HEAD};
+    \draw [arrow] (master) -- (head);
+  \end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Créer un commit sur master}
+\begin{center}
+  \begin{tikzpicture}[thick, node distance=28mm]
+    \node (command) at (2,1.5) {\code{\$ git commit ...}};
+    \node [commit] (98ca9) {98ca9};
+    \node [commit, right of=98ca9] (34ac2) {34ac2};
+    \draw [arrow] (98ca9) -- (34ac2);
+    \node [commit, right of=34ac2] (f30ab) {f30ab};
+    \draw [arrow] (34ac2) -- (f30ab);
+    \node [commit, right of=f30ab, yshift=1cm] (87ab2) {87ab2};
+    \draw [arrow] (f30ab) -- (87ab2);
+    \node [branch, above=6mm of 87ab2] (master) {master};
+    \draw [arrow] (87ab2) -- (master);
+    \node [commit, right of=f30ab, yshift=-1cm] (c2b9e) {c2b9e};
+    \draw [arrow] (f30ab) -- (c2b9e);
+    \node [branch, below=6mm of c2b9e] (testing) {testing};
+    \draw [arrow] (c2b9e) -- (testing);
+    \node [head, above=6mm of master] (head) {HEAD};
+    \draw [arrow] (master) -- (head);
+  \end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Divergence}
+\begin{center}
+  \begin{tikzpicture}[thick, node distance=28mm]
+    \node (start) {};
+    \node [commit, right of=start, xshift=-5mm] (f30ab) {f30ab};
+    \draw [arrow,dashed] (start) -- (f30ab);
+    \node [commit, right of=f30ab, yshift=1cm] (87ab2) {87ab2};
+    \draw [arrow] (f30ab) -- (87ab2);
+    \node [branch, above=6mm of 87ab2] (master) {master};
+    \draw [arrow] (87ab2) -- (master);
+    \node [commit, right of=f30ab, yshift=-1cm] (c2b9e) {c2b9e};
+    \draw [arrow] (f30ab) -- (c2b9e);
+    \node [branch, below=6mm of c2b9e] (testing) {testing};
+    \draw [arrow] (c2b9e) -- (testing);
+    \node [head, above=6mm of master] (head) {HEAD};
+    \draw [arrow] (master) -- (head);
+  \end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Merge}
+\begin{center}
+  \begin{tikzpicture}[thick, node distance=28mm]
+    \node (command) at (2,2) {\code{\$ git merge testing}};
+    \node (start) {};
+    \node [commit, right of=start, xshift=-5mm] (f30ab) {f30ab};
+    \draw [arrow,dashed] (start) -- (f30ab);
+    \node [commit, right of=f30ab, yshift=1cm] (87ab2) {87ab2};
+    \draw [arrow] (f30ab) -- (87ab2);
+    \node [commit, right of=f30ab, yshift=-1cm] (c2b9e) {c2b9e};
+    \draw [arrow] (f30ab) -- (c2b9e);
+    \node [commit, right of=87ab2, yshift=-1cm, align=center] (cf1a5) {cf1a5 \\ Merge testing};
+    \draw [arrow] (87ab2) -- (cf1a5);
+    \draw [arrow] (c2b9e) -- (cf1a5);
+    \node [branch, above=6mm of cf1a5] (master) {master};
+    \draw [arrow] (cf1a5) -- (master);
+    \node [branch, below=6mm of c2b9e] (testing) {testing};
+    \draw [arrow] (c2b9e) -- (testing);
+    \node [head, above=6mm of master] (head) {HEAD};
+    \draw [arrow] (master) -- (head);
+  \end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+  \begin{tikzpicture}[thick, node distance=28mm]
+    \node (start) {};
+    \node [commit, right of=start, xshift=-5mm] (f30ab) {f30ab};
+    \draw [arrow,dashed] (start) -- (f30ab);
+    \node [commit, right of=f30ab, yshift=1cm] (87ab2) {87ab2};
+    \draw [arrow] (f30ab) -- (87ab2);
+    \node [branch, above=6mm of 87ab2] (master) {master};
+    \draw [arrow] (87ab2) -- (master);
+    \node [commit, right of=f30ab, yshift=-1cm] (c2b9e) {c2b9e};
+    \draw [arrow] (f30ab) -- (c2b9e);
+    \node [branch, below=6mm of c2b9e] (testing) {testing};
+    \draw [arrow] (c2b9e) -- (testing);
+    \node [head, below=6mm of testing] (head) {HEAD};
+    \draw [arrow] (testing) -- (head);
+  \end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Rebase}
+\begin{center}
+  \begin{tikzpicture}[thick, node distance=28mm]
+    \node (command) at (2,2) {\code{\$ git rebase master}};
+    \node (start) {};
+    \node [commit, right of=start, xshift=-5mm] (f30ab) {f30ab};
+    \draw [arrow,dashed] (start) -- (f30ab);
+    \node [commit, right of=f30ab] (87ab2) {87ab2};
+    \draw [arrow] (f30ab) -- (87ab2);
+    \node [commit, right of=f30ab, yshift=-2cm, dashed, opacity=.5] (c2b9e) {c2b9e};
+    \draw [arrow,dashed,opacity=.5] (f30ab) -- (c2b9e);
+    \node [commit, right of=87ab2] (a071e) {a071e};
+    \draw [arrow] (87ab2) -- (a071e);
+    \draw [arrow,dashed,opacity=.5] (c2b9e) -- (a071e);
+    \node [branch, above=6mm of 87ab2] (master) {master};
+    \draw [arrow] (87ab2) -- (master);
+    \node [branch, below=6mm of a071e] (testing) {testing};
+    \draw [arrow] (a071e) -- (testing);
+    \node [head, below=6mm of testing] (head) {HEAD};
+    \draw [arrow] (testing) -- (head);
+  \end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Remotes}
+  Remote : référence vers un dépôt distant.
+
+\begin{alltt}
+$ git remote -v
+origin	git://git.kernel.org/pub/scm/git/git.git (fetch)
+origin	git://git.kernel.org/pub/scm/git/git.git (push)
+
+$ git branch -a
+* \textcolor{ansigreen}{master}
+  \textcolor{ansired}{remotes/origin/HEAD -> origin/master
+  remotes/origin/man
+  remotes/origin/master
+  remotes/origin/next}
+\end{alltt}
+\end{frame}
+
+\begin{frame}{\code{git pull [remote] [branch]}}
+  \code{git pull origin master}
+  \begin{itemize}
+    \item git fetch origin
+    \item git merge origin/master
+  \end{itemize}
+
+  \begin{center}
+    \begin{tikzpicture}[thick, node distance=28mm]
+      \node [align=center] (command) at (2,2.5) {\code{\$ git fetch origin}};
+      \node (start) {};
+      \node [commit, right of=start, xshift=-5mm] (f30ab) {f30ab};
+      \draw [arrow,dashed] (start) -- (f30ab);
+      \node [commit, right of=f30ab] (c2b9e) {c2b9e};
+      \draw [arrow] (f30ab) -- (c2b9e);
+      \node [commit, right of=c2b9e] (a071e) {a071e};
+      \draw [arrow] (c2b9e) -- (a071e);
+
+      \node [branch, below=6mm of f30ab, opacity=.5] (old_origin_master) {origin/master};
+      \draw [arrow, opacity=.5] (f30ab) -- (old_origin_master);
+      \node [branch, above=6mm of f30ab] (master) {master};
+      \draw [arrow] (f30ab) -- (master);
+
+      \node [branch, below=6mm of a071e] (origin_master) {origin/master};
+      \draw [arrow] (a071e) -- (origin_master);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{\code{git pull [remote] [branch]}}
+  \code{git pull origin master}
+  \begin{itemize}
+    \item git fetch origin
+    \item git merge origin/master
+  \end{itemize}
+
+  \begin{center}
+    \begin{tikzpicture}[thick, node distance=28mm]
+      \node (command) at (2.5,2.5) {\code{\$ git merge origin/master}};
+      \node (start) {};
+      \node [commit, right of=start, xshift=-5mm] (f30ab) {f30ab};
+      \draw [arrow,dashed] (start) -- (f30ab);
+      \node [commit, right of=f30ab] (c2b9e) {c2b9e};
+      \draw [arrow] (f30ab) -- (c2b9e);
+      \node [commit, right of=c2b9e] (a071e) {a071e};
+      \draw [arrow] (c2b9e) -- (a071e);
+
+      \node [branch, above=6mm of f30ab, opacity=.5] (old_master) {master};
+      \draw [arrow, opacity=.5] (f30ab) -- (old_master);
+
+      \node [branch, below=6mm of a071e] (origin_master) {origin/master};
+      \draw [arrow] (a071e) -- (origin_master);
+
+      \node [branch, above=6mm of a071e] (master) {master};
+      \draw [arrow] (a071e) -- (master);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{\code{git pull : merge}}
+  \begin{center}
+    \begin{tikzpicture}[thick, node distance=28mm]
+      \node (command) at (1,2) {\code{\$ git merge origin/master}};
+      \node (start) {};
+      \node [commit, right of=start, xshift=-5mm] (f30ab) {f30ab};
+      \draw [arrow,dashed] (start) -- (f30ab);
+      \node [commit, right of=f30ab, yshift=-1cm] (87ab2) {87ab2};
+      \draw [arrow] (f30ab) -- (87ab2);
+      \node [commit, right of=f30ab, yshift=1cm] (c2b9e) {c2b9e};
+      \draw [arrow] (f30ab) -- (c2b9e);
+      \node [commit, right of=87ab2, yshift=1cm, align=center] (merge) {Merge};
+      \draw [arrow] (87ab2) -- (merge);
+      \draw [arrow] (c2b9e) -- (merge);
+
+      \node [branch, above=6mm of c2b9e, opacity=.5] (old_master) {master};
+      \draw [arrow, opacity=.5] (c2b9e) -- (old_master);
+      \node [branch, below=6mm of 87ab2] (origin_master) {origin/master};
+      \draw [arrow] (87ab2) -- (origin_master);
+      \node [branch, above=6mm of merge] (master) {master};
+      \draw [arrow] (merge) -- (master);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{\code{git pull \code{-}-rebase}}
+  \begin{center}
+    \begin{tikzpicture}[thick, node distance=28mm]
+      \node (command) at (1,2) {\code{\$ git rebase origin/master}};
+      \node (start) {};
+      \node [commit, right of=start, xshift=-5mm] (f30ab) {f30ab};
+      \draw [arrow,dashed] (start) -- (f30ab);
+      \node [commit, right of=f30ab] (87ab2) {87ab2};
+      \draw [arrow] (f30ab) -- (87ab2);
+      \node [commit, right of=f30ab, yshift=2cm, dashed, opacity=.5] (c2b9e) {c2b9e};
+      \node [commit, right of=87ab2] (a071e) {a071e};
+      \draw [arrow] (87ab2) -- (a071e);
+      \draw [arrow,dashed,opacity=.5] (f30ab) -- (c2b9e);
+      \draw [arrow,dashed,opacity=.5] (c2b9e) -- (a071e);
+
+      \node [branch, above=6mm of c2b9e,opacity=.5] (old_master) {master};
+      \draw [arrow,opacity=.5] (c2b9e) -- (old_master);
+      \node [branch, below=6mm of 87ab2] (origin_master) {origin/master};
+      \draw [arrow] (87ab2) -- (origin_master);
+      \node [branch, above=6mm of a071e] (master) {master};
+      \draw [arrow] (a071e) -- (master);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{\code{git push [remote] [branch]}}
+  \begin{center}
+    \begin{tikzpicture}[thick, node distance=28mm]
+      \node (command) at (2.5,2.5) {\code{\$ git push origin master}};
+      \node (start) {};
+      \node [commit, right of=start, xshift=-5mm] (f30ab) {f30ab};
+      \draw [arrow,dashed] (start) -- (f30ab);
+      \node [commit, right of=f30ab] (c2b9e) {c2b9e};
+      \draw [arrow] (f30ab) -- (c2b9e);
+      \node [commit, right of=c2b9e] (a071e) {a071e};
+      \draw [arrow] (c2b9e) -- (a071e);
+
+      \node [branch, below=6mm of f30ab, opacity=.5] (old_origin_master) {origin/master};
+      \draw [arrow, opacity=.5] (f30ab) -- (old_origin_master);
+
+      \node [branch, below=6mm of a071e] (origin_master) {origin/master};
+      \draw [arrow] (a071e) -- (origin_master);
+
+      \node [branch, above=6mm of a071e] (master) {master};
+      \draw [arrow] (a071e) -- (master);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Commandes principales}
+
+\emph{browse} \begin{itemize}
+  \item \code{git status}
+  \item \code{git log}
+  \item \code{git diff}
+\end{itemize}
+
+\emph{commit} \begin{itemize}
+  \item \code{git add}
+  \item \code{git commit}
+\end{itemize}
+
+\emph{branch} \begin{itemize}
+  \item \code{git branch / checkout}
+  \item \code{git merge / rebase}
+\end{itemize}
+
+\emph{remote} \begin{itemize}
+  \item \code{git pull}
+  \item \code{git push}
+\end{itemize}
+
+\end{frame}

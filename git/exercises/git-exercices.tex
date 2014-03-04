@@ -1,0 +1,169 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{nopageno}
+\usepackage{url}
+
+% marges de la page
+\usepackage[top=2cm, bottom=2cm, left=2.5cm, right=2.5cm]{geometry}
+
+\setlength{\parindent}{0pt}
+
+\usepackage{listings}
+\lstset{
+  language=bash,
+  basicstyle=\ttfamily,
+  showstringspaces=false,
+}
+
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\shell}[1]{\hspace*{1cm}\lstinline{\$ #1}\\}
+
+\title{Exercices sur git}
+\author{Benoit Daloze \and Sébastien Wilmet}
+\date{16 avril 2012}
+
+\begin{document}
+
+\maketitle
+
+\section{Échauffement}
+
+Ouvrez un terminal (sous Windows, lancez "Git bash" depuis le menu Démarrer).
+Commencez par vous identifier à git (à ne faire qu'une fois) :
+
+\shell{git config --global user.name "Your Name"}
+\shell{git config --global user.email "foo@bar.be"}
+\shell{git config --global color.ui auto}
+
+Puis créez un dépôt git:
+
+\shell{mkdir exercices}
+\shell{cd exercices}
+\shell{git init}
+
+Le premier but est de créer un \textit{commit}. Comme il nous faut quelque chose à mettre dedans, créez un fichier :
+
+\shell{echo "I'm learning git" > README}
+
+Faites un \code{git status} pour voir où vous en êtes.
+Git liste votre fichier comme \emph{untracked} et vous indique qu'il faut utiliser \code{git add} pour prendre en compte ce fichier:
+
+\shell{git add README}
+
+\code{git status} indique maintenant le fichier dans la partie \emph{Changes to be committed}.
+Créez donc ce \emph{commit}. L'option \code{-m} permet de spécifier le titre du \emph{commit} directement dans la ligne de commande. Si l'option \code{-m} n'est pas utilisée, un éditeur de texte s'ouvre\footnote{En console l'éditeur de texte peut être vim, nano, etc. Sous Unix cela dépend de la variable d'environnement EDITOR, que vous pouvez modifier si besoin: \code{export EDITOR=nano}}.
+
+\shell{git commit -m "first commit"}
+
+Vous pouvez maintenant vérifier que votre dossier (\emph{working directory}) est propre avec \code{git status}.
+Vérifiez que le \emph{commit} a bien été créé, en utilisant \code{git log}, avec l'option \code{-p} pour voir les changements. \\
+
+Modifiez le fichier README et regardez la \textit{diff} :
+
+\shell{git diff}
+
+La modification n'est pas encore dans la \textit{staging area}, c'est-à-dire qu'il n'y a encore rien pour le prochain \emph{commit}. Si vous voulez commiter le changement, nous avons vu qu'il est possible de faire un \code{git add} suivi d'un \code{git commit}. Cependant, il est possible de le faire en une seule étape, grâce à :
+
+\shell{git commit -a}
+
+Quand vous faites celà, vérifiez bien avant avec \code{git status} ainsi que \code{git diff} que tous les changements sont OK pour faire le \emph{commit}.
+
+\section{Branches, \emph{merges} et autres \emph{rebases}}
+Créez une branche \code{test}:
+
+\shell{git branch test}
+\shell{git branch}
+
+Créez un \emph{commit} sur \code{master} qui modifie le \texttt{README}.\\
+
+Passez sur la branche \code{test} :
+
+\shell{git checkout test}
+
+Créez un \emph{commit} qui rajoute un \emph{nouveau} fichier (pour ne pas qu'il y ait de conflits plus tard).\\
+
+Voyez maintenant où vous en êtes avec :
+
+\shell{git log --graph --decorate --oneline --all}
+
+Comme c'est une commande pratique, vous pouvez en faire un alias :
+
+\shell{git config --global alias.lola "log --graph --decorate --oneline --all"}
+\shell{git lola}
+
+Il est temps de faire un \emph{merge} pour intégrer la branche \code{test} dans la branche \code{master} :
+
+\shell{git checkout master}
+\shell{git merge test}
+\shell{git lola}
+
+Un \textit{rebase} aurait permit d'avoir un historique linéaire. Annulez d'abord le dernier \emph{commit}, qui est le \emph{merge} (attention commande dangereuse, vérifiez bien avec \code{git lola} ou \code{git log} que vous vous trouvez bien sur le bon \emph{commit} !) :
+
+\shell{git reset --hard HEAD~1}
+
+Vous êtes normalement revenu à l'état précédent, comme si le \emph{merge} n'avait pas eu lieu.\\
+Faites maintenant le \textit{rebase} :
+
+\shell{git checkout test}
+\shell{git rebase master}
+\shell{git lola}
+
+La branche \code{test} se trouve maintenant juste au-dessus de \code{master}, le \emph{merge} se fera en «~\textit{fast-forward}~» :
+
+\shell{git checkout master}
+\shell{git merge test}
+
+OK toujours vivant ? Compliquons un peu les choses : faites un \textit{commit} sur \code{master} qui modifie une certaine ligne d'un fichier. Allez sur la branche \code{test} et créez un autre \textit{commit} qui modifie exactement la même ligne. Le \textit{merge} donnera un conflit. En voici un exemple :
+
+\bigskip
+\begin{tabular}{ll}
+  Avant & hello world \\
+  Branche \code{master} & goodby world\\
+  Branche \code{test} & Hello, world!\\
+  Merge & Goodby, world!
+\end{tabular}
+\bigskip
+
+Éditez le fichier pour régler le conflit, et suivez les instructions données par la commande \code{merge}. Une fois terminé, la branche \code{test} ne sert plus à rien, vous pouvez la supprimer :
+
+\shell{git branch -d test}
+
+\section{Pour aller plus loin}
+
+Faites des modifications, puis imaginez que vous voulez changer de branche. Il vous faut pour cela un dossier propre. Utilisez \code{git stash save}, changez de branche et puis revenez et faites un \code{git stash pop}. \\
+
+Changez votre dernier \emph{commit} an ajoutant une autre modification à l'aide de \code{git commit --amend}. \\
+
+Essayez d'appliquer un \emph{commit} dont vous trouverez la référence avec \code{git log} sur la branche courante en utilisant \code{git cherry-pick}. \\
+
+Voyez un peu ce que vous avez fait avec \code{git reflog}, et profitez-en pour satisfaire votre curiosité en inspectant une référence avec \code{git show}. \\
+
+Notez que \code{git show} permet facilement de voir un fichier à une référence donnée avec la syntaxe \code{git show ref:file}. \\
+
+Comparez la taille de votre répertoire avec \code{du -ks} avant et après \code{git gc}. git possède un \emph{garbage collector}, qui permet de mieux arranger le contenu du dépôt. \\
+
+Faites plusieurs modifications dans le même fichier, pas forcément contiguës. Essayez d'en ajouter qu'une partie avec \code{git add -p}. Pouvez-vous même le faire lorsque les lignes se suivent? (indice: e) \\
+
+Créez quelques commits dans une branche. Inversez l'ordre de certains commits avec\\
+\code{git rebase -i HEAD~n}, qui sélectionne les \textit{n} derniers commits et vous propose différentes actions à faire sur ceux-ci, par exemple renommer le message, fusionner plusieurs commits, changer l'ordre, etc. Regardez le résultat grâce à \code{git lola}. \\
+
+Faites quelques modifications et faites un \code{git add}. Vous aimeriez bien voir la diff de ces modifications prêtes à être inclues dans le prochain \emph{commit} (la \textit{staging area}). Trouvez l'option de \code{git diff} permettant de faire cela. \\
+
+Imaginez que vous vous rendez compte qu'il y a un bug quand vous testez le dernier \emph{commit}, et qu'auparavant ce bug n'existait pas. Vous regardez l'historique et vous trouvez un \emph{commit} où vous êtes certain que le bug n'existait pas, le plus récent possible. Avec \code{git bisect}, il est alors facile de trouver le \emph{commit} qui a introduit le bug. Pour démarrer la recherche dichotomique, faites :
+
+\shell{git bisect start HEAD <bad-commit>}
+
+Pour l'exercice, assurez-vous qu'entre HEAD et le «~bad-commit~», il y ait au moins une petite dizaine de commits. git va maintenant vous emmener à travers plusieurs \emph{commit} que vous allez devoir marquer comme bon ou mauvais. Utilisez :
+
+\shell{git bisect bad}
+\shell{git bisect good}
+
+Une fois terminé, git vous donne le premier \emph{commit} qui introduit le bug. \code{git lola} vous permet de voir les \emph{commits} que vous avez marqués. Terminez par :
+
+\shell{git bisect reset}
+
+Pour les slides et un example de fichier \code{$HOME/.gitconfig}: \url{http://eregon.me/git/}
+
+\end{document}

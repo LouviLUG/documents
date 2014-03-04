@@ -40,20 +40,32 @@ Disposition de clavier Dvorak bépo
 Lightning talk de 15 minutes, présenté en mars 2011 lors d'une install
 party du Louvain-li-Nux.
 
-LaTeXila
---------
+Formation Git
+-------------
 
-Une page A5 présentant LaTeXila, un environnement LaTeX intégré pour
-GNOME, créé par Sébastien Wilmet.
+Présentation et exercices sur le gestionnaire de versions Git.
 
-Ce document a été distribué lors de la Foire du Libre du Louvain-li-Nux
-en avril 2012 (stand GNOME/LaTeXila).
+Durée : 2h (40 min de présentation, 80 min d'exercices)
+
+Présenté :
+- avec l'ACM en février 2012.
+- lors d'un cours de l'UCL de 2e année en avril 2012.
+- avec l'ACM en février 2013.
 
 Développement GNOME et le langage Vala
 --------------------------------------
 
 Une page A5 présentant le langage de programmation Vala et les
 bibliothèques principales de GNOME : GLib, GObject et GTK+.
+
+Ce document a été distribué lors de la Foire du Libre du Louvain-li-Nux
+en avril 2012 (stand GNOME/LaTeXila).
+
+LaTeXila
+--------
+
+Une page A5 présentant LaTeXila, un environnement LaTeX intégré pour
+GNOME, créé par Sébastien Wilmet.
 
 Ce document a été distribué lors de la Foire du Libre du Louvain-li-Nux
 en avril 2012 (stand GNOME/LaTeXila).

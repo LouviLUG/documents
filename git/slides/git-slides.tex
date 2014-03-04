@@ -1,0 +1,63 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{alltt}
+
+\usepackage{xcolor}
+\definecolor{lightgreen}{rgb}{0.56, 0.93, 0.56}
+\definecolor{blizzardblue}{rgb}{0.67, 0.9, 0.93}
+\definecolor{lightgrey}{rgb}{0.7, 0.7, 0.7}
+\definecolor{ansigreen}{rgb}{0.01, 0.75, 0.24}
+\definecolor{ansired}{rgb}{0.79, 0.0, 0.09}
+\definecolor{ansicyan}{rgb}{0.0, 0.77, 0.77}
+\definecolor{ansiblue}{rgb}{0.08, 0.38, 0.74}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,shapes.geometric,shapes.symbols,arrows,shapes.multipart,positioning,calc,backgrounds,fit}
+
+\tikzstyle{arrow} = [draw, latex-]
+\tikzstyle{myrect} = [draw, rectangle, rounded corners=4pt, minimum width=16mm, minimum height=8mm]
+\tikzstyle{commit} = [myrect, fill=lightgreen]
+\tikzstyle{branch} = [myrect, fill=blizzardblue]
+\tikzstyle{head} = [myrect, fill=lightgrey]
+
+%\usetheme{Copenhagen}
+\usecolortheme{beaver}
+
+\setbeamertemplate{navigation symbols}{}
+
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\graphicspath{{./images/}}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\opt}[1]{[-\hspace{0pt}-#1]}
+
+\title[Git]{Git : un gestionnaire de versions intelligent}
+\author{Benoit Daloze et Sébastien Wilmet}
+\date{16 avril 2012}
+
+\begin{document}
+
+\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{background}}
+\begin{frame}
+\titlepage
+\begin{center}
+  \includegraphics[width=100pt]{git-logo}
+\end{center}
+\end{frame}
+
+\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{background-light}}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\include{part1-vcs}
+\include{part2-basic}
+\include{part3-branches}
+\include{part4-advanced}
+
+\end{document}

@@ -1,0 +1,11 @@
+digraph G {
+  rankdir=LR
+  
+  "SCCS\n1972" -> "RCS\n1982"
+  "RCS\n1982" -> "CVS\n1990"
+  "CVS\n1990" -> "Subversion\n2000"
+  
+  "Subversion\n2000" -> "Bazaar\n2005"
+  "Subversion\n2000" -> "Mercurial\n2005"
+  "Subversion\n2000" -> "Git\n2005"
+}

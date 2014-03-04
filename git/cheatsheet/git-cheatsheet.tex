@@ -1,0 +1,118 @@
+\documentclass[a4paper,landscape,10pt]{article}
+\usepackage[twocolumn,columnsep=20mm,hmargin={15mm,15mm},vmargin={15mm,15mm}]{geometry}
+\usepackage{nopageno}
+
+\setlength{\parindent}{0pt}
+
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+
+\usepackage{listings}
+\lstset{
+  language=bash,
+  basicstyle=\ttfamily,
+  showstringspaces=false,
+}
+
+\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\shell}[1]{\lstinline{\$ #1}}
+
+\begin{document}
+
+\begin{center}
+  {\huge Git : cheatsheet}
+\end{center}
+
+\section{Configuration globale}
+
+\begin{tabular}{ll}
+  Nom     & \shell{git config --global user.name "Your Name"} \\
+  Email   & \shell{git config --global user.email "foo@bar.be"} \\
+  Couleur & \shell{git config --global color.ui auto} \\
+\end{tabular}
+
+\section{Création du dépôt}
+
+Dans le dossier principal du projet:
+
+\shell{git init}
+
+\medskip
+Ou bien faire un clone d'un projet existant :
+
+\shell{git clone <url>}
+
+\section{Commandes de base}
+
+Voir l'état actuel du dépôt :
+
+\shell{git status}
+
+\medskip
+Voir l'historique :
+
+\shell{git log [-p]}
+
+\shell{git lola}
+
+\medskip
+Voir les modifications en cours :
+
+\shell{git diff}
+
+\section{Création d'un \emph{commit}}
+
+\subsection*{Marquer ce qu'il faut mettre dans le \emph{commit}}
+
+En fonction du type de modification, il faut utiliser la commande appropriée.
+
+\begin{tabular}{ll}
+  Modifier & \shell{git add <file>}\textsuperscript{1} \\
+  Ajouter & \shell{git add <file>} \\
+  Supprimer & \shell{git rm <file>} \\
+  Déplacer & \shell{git mv <old_name> <new_name>} \\[1em]
+\end{tabular}
+
+\textsuperscript{1} Si on veux marquer toutes les modifications (mais pas les nouveau fichiers),\\
+\hspace*{2mm} il y a un raccourci: \shell{git commit -a}.
+
+\subsection*{Écrire le message du commit et le créer}
+
+\shell{git commit}\\
+
+L'option \code{-m} peut être utilisée pour passer le message directement:\\
+\shell{git commit -m "message du commit"}
+
+\section{Branches}
+
+\subsection*{Créer une branche}
+
+\shell{git branch <name>}
+
+\subsection*{Changer de branche}
+
+\shell{git checkout <branch>}
+
+\subsection*{\emph{Merge} une branche}
+
+\emph{Merge} la branche courante avec \code{other_branch}.
+
+\shell{git merge <other_branch>}
+
+\subsection*{\emph{Rebase} une branche}
+
+\emph{Rebase} la branche courante «~au dessus~» de \code{other_branch}.
+
+\shell{git checkout <other_branch>}
+
+\subsection*{Prendre les modifications distantes}
+
+\shell{git pull}
+
+\subsection*{Envoyer ses modifications}
+
+\shell{git push}
+
+\end{document}

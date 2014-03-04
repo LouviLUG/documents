@@ -1,0 +1,30 @@
+[color]
+	ui = auto
+[gc]
+	auto = 1
+[push]
+	default = upstream
+[alias]
+	a = add
+	author-stats = shortlog -sn
+	b = branch
+	c = commit
+	co = checkout
+	d = diff
+	f = fetch
+	h = help
+	hw = help --web
+	l = log
+	lo = log --oneline
+	le = log --pretty='format:%an'
+	lol = log --graph --decorate --oneline
+	lola = log --graph --decorate --oneline --all
+	lole = log --graph --abbrev-commit --pretty='format:%C(yellow)%h%Cblue %an%Cred%d%Creset %s'
+	lolae = log --graph --abbrev-commit --all --pretty='format:%C(yellow)%h%Cblue %an%Cred%d%Creset %s'
+	lp = log --patch
+	p = pull
+	pu = push
+	ru = remote update
+	s = status
+	show-ignored-added = ls-files -i --exclude-standard
+	unstage = reset HEAD --

@@ -1,0 +1,242 @@
+\section{Commandes de base, créer un commit}
+
+\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{background-light}}
+\begin{frame}
+  \tableofcontents[sectionstyle=show/shaded]
+\end{frame}
+\usebackgroundtemplate{}
+
+\begin{frame}[fragile]{Créer le dépôt Git}
+  Pour un nouveau projet :
+\begin{footnotesize}
+\begin{verbatim}
+$ mkdir project
+$ cd project/
+$ git init
+\end{verbatim}
+\end{footnotesize}
+
+  \pause
+  \bigskip
+  Pour un projet existant :
+\begin{footnotesize}
+\begin{verbatim}
+$ git clone git://example.net/project
+$ cd project/
+\end{verbatim}
+\end{footnotesize}
+
+  \pause
+  \bigskip
+  Répertoire caché \texttt{.git/} (unique) :
+\begin{footnotesize}
+\begin{verbatim}
+$ ls .git/
+config  description  HEAD  hooks/  info/  objects/  refs/
+\end{verbatim}
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}{États d'un fichier}
+  \textit{\textbf{Untracked}}
+  \begin{itemize}
+    \item non pris en compte par Git
+  \end{itemize}
+
+  \pause
+  \medskip
+  \textit{\textbf{Unmodified/Committed}}
+  \begin{itemize}
+    \item aucune modification
+  \end{itemize}
+
+  \pause
+  \medskip
+  \textit{\textbf{Modified}}
+  \begin{itemize}
+    \item fichier modifié
+    \item pas pris en compte pour le prochain commit
+  \end{itemize}
+
+  \pause
+  \medskip
+  \textit{\textbf{Staged}}
+  \begin{itemize}
+    \item fichier ajouté, modifié, supprimé ou déplacé
+    \item pris en compte pour le prochain commit
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{États d'un fichier}
+\begin{center}
+\begin{tikzpicture}[thick, node distance=40mm]
+  \node [myrect] (wd) {Working directory};
+  \node [myrect, below=10mm of wd, align=center, fill=red] (uu) {Untracked \\ Modified};
+  \node [myrect, right of=wd] (staging) {Staging area};
+  \node [myrect, right of=uu, align=center, fill=green] (staged) {Staged};
+  \node [myrect, right of=staging] (repository) {Repository};
+  \node [myrect, right of=staged, fill=yellow] (committed) {Committed};
+  \draw [arrow] (staged) -- (uu) node [above,midway] {git add};
+  \draw [arrow] (committed) -- (staged) node [above,midway] {git commit};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Créer un nouveau fichier}
+\begin{footnotesize}
+\begin{verbatim}
+$ echo hello > README
+\end{verbatim}
+\end{footnotesize}
+
+État du fichier : \textit{\textbf{untracked}}
+
+\pause
+\begin{footnotesize}
+\begin{alltt}
+$ git status
+# On branch master
+#
+# Initial commit
+#
+# \textcolor{ansired}{Untracked files}:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#       \textcolor{ansired}{README}
+nothing added to commit but untracked files present
+\end{alltt}
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}[fragile]{Créer un nouveau fichier}
+\begin{footnotesize}
+\begin{verbatim}
+$ git add README
+\end{verbatim}
+\end{footnotesize}
+
+État du fichier : \textit{\textbf{untracked}} $ \longrightarrow $ \textit{\textbf{staged}}
+
+\pause
+\begin{footnotesize}
+\begin{alltt}
+$ git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached <file>..." to unstage)
+#
+#	      \textcolor{ansigreen}{new file:   README}
+#
+\end{alltt}
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}[fragile]{Créer le commit}
+\begin{footnotesize}
+\begin{verbatim}
+$ git commit
+[écrire le message du commit]
+\end{verbatim}
+
+\pause
+\begin{verbatim}
+$ git log
+commit c3aab8bb6cca644162a4fa82df283682717da3d4
+Author: Your Name <foo@bar.be>
+Date:   Wed Feb 1 15:19:03 2012 +0100
+
+    Titre du commit (pas trop long)
+
+    Plus longue description.
+    Ligne vide après le titre.
+\end{verbatim}
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}[fragile]{Modifier un fichier}
+État du fichier README : \textit{\textbf{unmodified}}
+
+\pause
+\begin{footnotesize}
+\begin{verbatim}
+$ echo world >> README
+\end{verbatim}
+\end{footnotesize}
+
+État : \textit{\textbf{modified}}
+
+\pause
+\begin{footnotesize}
+\begin{verbatim}
+$ git add README
+\end{verbatim}
+\end{footnotesize}
+
+État : \textit{\textbf{staged}}
+
+\pause
+\begin{footnotesize}
+\begin{verbatim}
+$ git commit
+\end{verbatim}
+\end{footnotesize}
+
+État : \textit{\textbf{committed}}
+\end{frame}
+
+\begin{frame}[fragile]{Diff}
+  Voir les modifications avant de créer un commit.
+\begin{small}
+\begin{alltt}
+$ echo new-text > README
+
+$ git diff
+diff --git a/README b/README
+index 2e85c45..4320c6f 100644
+--- a/README
++++ b/README
+\textcolor{ansicyan}{@@ -1,2 +1 @@}
+\textcolor{ansired}{-hello
+-world}
+\textcolor{ansigreen}{+new-text}
+\end{alltt}
+\end{small}
+\end{frame}
+
+\begin{frame}[fragile]{Aide}
+La liste des commandes :
+\begin{small}
+\begin{verbatim}
+$ git help
+\end{verbatim}
+\end{small}
+
+\bigskip
+Page de manuel d'une commande :
+\begin{small}
+\begin{verbatim}
+$ git help <cmd>
+$ git help <cmd> --web
+$ git <cmd> --help
+\end{verbatim}
+\end{small}
+\end{frame}
+
+\begin{frame}{Résumé des commandes}
+  \begin{ttfamily}
+    \begin{itemize}
+      \item git init
+      \item git clone
+      \item git status
+      \item git add <file>
+      \item git rm/mv <file>
+      \item git commit
+      \item git log
+      \item git diff
+      \item git help
+    \end{itemize}
+  \end{ttfamily}
+\end{frame}
